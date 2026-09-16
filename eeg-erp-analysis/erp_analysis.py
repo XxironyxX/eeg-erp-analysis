@@ -43,7 +43,13 @@ epochs = mne.Epochs(
 )   #分段时指定时间窗
 print(f'提取了 {len(epochs)} 个 epochs')
 
+<<<<<<< Updated upstream
 # 5. P1 峰值对齐
+=======
+# ============================================================
+# 5. P1 峰值对齐
+# ============================================================
+>>>>>>> Stashed changes
 p1_win    = (0.07, 0.15)       # P1 搜索窗（约 70–150 ms）
 max_shift = 0.05               # P1 抖动小，限 ±50 ms
 smooth_ms = 10                 # P1 尖，平滑短一点
@@ -92,11 +98,19 @@ epochs_aligned = mne.EpochsArray(
     tmin=tmin, event_id=epochs.event_id, baseline=None, verbose=False
 )
 
+<<<<<<< Updated upstream
 #  6. 平均 
 erp_raw     = epochs.average()
 erp_aligned = epochs_aligned.average()
 
 # 7. 量化 P1 幅值提升
+=======
+# ---------- 6. 平均 ----------
+erp_raw     = epochs.average()
+erp_aligned = epochs_aligned.average()
+
+# ---------- 7. 量化 P1 幅值提升 ----------
+>>>>>>> Stashed changes
 def peak(evoked, ch, win):
     seg = evoked.copy().crop(tmin=win[0], tmax=win[1])
     idx = seg.ch_names.index(ch)
@@ -111,9 +125,15 @@ print('\n===== P1 分析结果 =====')
 print(f'通道: {align_channel}')
 print(f'未对齐: 潜伏期 {lat_r:.1f} ms, 幅值 {amp_r:.2f} µV')
 print(f'对齐后: 潜伏期 {lat_a:.1f} ms, 幅值 {amp_a:.2f} µV')
+<<<<<<< Updated upstream
 print(f'P1 幅值提升: {amp_a - amp_r:+.2f} µV  ({(amp_a/amp_r-1)*100:+.1f}%)')
 
 # 8. 可视化 
+=======
+print(f'★ P1 幅值提升: {amp_a - amp_r:+.2f} µV  ({(amp_a/amp_r-1)*100:+.1f}%)')
+
+# ---------- 8. 可视化 ----------
+>>>>>>> Stashed changes
 fig, ax = plt.subplots(figsize=(9, 4))
 ax.plot(erp_raw.times,     erp_raw.copy().pick(align_channel).data[0]*1e6,
         label='未对齐', lw=1.5)
@@ -127,8 +147,16 @@ ax.set_title(f'{align_channel}: P1 对齐前后对比')
 ax.legend(); fig.tight_layout()
 fig.savefig('p1_align_compare.png', dpi=150)
 
+<<<<<<< Updated upstream
 # joint 图（查看 P1 地形）
 erp_aligned.plot_joint(times=[0.08, 0.10, 0.12, 0.15],
                        title='ERP (P1 对齐)')
 
 plt.show()
+=======
+# joint 图（看 P1 地形）
+erp_aligned.plot_joint(times=[0.08, 0.10, 0.12, 0.15],
+                       title='ERP (P1 对齐)')
+
+plt.show()
+>>>>>>> Stashed changes
